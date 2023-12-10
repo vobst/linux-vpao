@@ -4,7 +4,7 @@ pkgbase=linux-vpao
 pkgver=6.6.5.vpao1
 pkgrel=1
 pkgdesc='Linux'
-url='https://github.com/archlinux/linux'
+url='https://github.com/torvalds/linux'
 arch=(x86_64)
 license=(GPL2)
 makedepends=(
@@ -23,7 +23,7 @@ _srcname=linux-${pkgver%.*}
 _srctag=v${pkgver%.*}-${pkgver##*.}
 source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
-  config  # the main kernel config file
+  config
 )
 validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
@@ -37,7 +37,7 @@ b2sums=('9d66d720f2f037cfd480835ab38807fe5aabcff09bd210c5cb0dc80bd3e1182434df9f0
         'SKIP'
         '57b68fd5e01e4e400e3fe58044c1ba115f4c12c6745df72cda589815fa381b2bc36484c58f5aab65ac0276df364bb31f1aad92815e3638d2a27ea47bfdc140b4')
 
-export KBUILD_BUILD_HOST=archlinux
+export KBUILD_BUILD_HOST="$(uname -n)"
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
