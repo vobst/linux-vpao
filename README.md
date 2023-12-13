@@ -12,4 +12,4 @@ This kernel enforces module signatures. Thus, you need to sign out-of-tree modul
 
 #### DKMS
 
-Set `mok_signing_key` and `mok_certificate` to point to the cryptographic material that you want to use for signing.
+Edit `/etc/dkms/framework.conf` and set `mok_signing_key` and `mok_certificate` to point to the cryptographic material that you want to use for signing.
