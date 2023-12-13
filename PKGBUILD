@@ -2,7 +2,7 @@
 
 pkgbase=linux-vpao
 pkgver=6.6.6.vpao1
-pkgrel=2
+pkgrel=3
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
 arch=(x86_64)
@@ -32,10 +32,10 @@ validpgpkeys=(
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 sha256sums=('ebf70a917934b13169e1be5b95c3b6c2fea5bc14e6dc144f1efb8a0016b224c8'
             'SKIP'
-            'e443f8702e811e247e34b08d32c643dfccd210d34bf44c97a9ad76c441267edf')
+            '15a8d7ca5c5743567754b15e3ecae5bf3929cc4b370114234898ca35e9eb196b')
 b2sums=('aef38e65d2bcccabb6d96691f96e5c0b3961e4e6125a33feb7ee99cd95c480984e35cc1e72bfa8da60ca76a40744054b8817012f6ebf85fc66161b802be73fb6'
         'SKIP'
-        '34fdef624b97a7a5150cb419e759f475d4ce253f4748f80f1f5a45550812a0bbf306a258e1e067d4aa3e21a14b864f26d1eb8c82cd71385a27261b808b51146f')
+        '0c8f0080d5f4dcd7ad0ac62748dfee6825ad6418f7de23b9b57c21b6dcd8ea7fa1747a072cabe5fee3c9fb12440f6d719e4938b1750473fa3643239e59684178')
 
 export KBUILD_BUILD_HOST="$(uname -n)"
 export KBUILD_BUILD_USER=$pkgbase
