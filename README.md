@@ -103,7 +103,7 @@ To select the UKI by default, edit `/etc/default/grub` and set `GRUB_DEFAULT="Ar
 
 #### Efi Boot
 
-Relying on a singed bootloader that will happily load anything you give it is a bad idea. Thus the goal must be to get rid of having a bootloader all together, which is arguably the whole purpose of having a UKI in the first place. Use `efibootmgr` to create the boot entries:
+Use `efibootmgr` to create the boot entries:
 
 ```console
 sudo efibootmgr --create --disk /dev/sda --part 1 --label linux-vpao-uki -l '\EFI\Linux\arch-linux-vpao.efi' --unicode
@@ -122,4 +122,36 @@ and remove some unneded boot entries (like Grub):
 sudo efibootmgr -b 000Z -B
 ```
 
-When you are sure that everything is stable, deinstall the bootloader and all non-UKI kernels.
+When you are sure that everything is stable, remove the bootloader and all non-UKI kernels as well as their initramfss from the `/boot` partition.
+
+#### fwupd
+
+I hope that you are using fwupd to keep your firmware up to date. To use it with secure boot enabled sign the EFI application
+
+```console
+sbctl sign -s /usr/lib/fwupd/efi/fwupdx64.efi -o /usr/lib/fwupd/efi/fwupdx64.efi.signed
+```
+
+and tell fwupd to use it (append to `/etc/fwupd/fwupd.conf`)
+
+```console
+[uefi_capsule]
+DisableShimForSecureBoot=true
+```
+
+also add a pacman hook to resign the updater when needed
+
+```console
+cat << EOF > /etc/pacman.d/hooks/sign-fwupd-secureboot.hook
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Path
+Target = usr/lib/fwupd/efi/fwupdx64.efi
+
+[Action]
+When = PostTransaction
+Exec = /usr/bin/sbctl sign /usr/lib/fwupd/efi/fwupdx64.efi -o /usr/lib/fwupd/efi/fwupdx64.efi.signed
+Depends = sbctl
+EOF
+```
