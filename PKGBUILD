@@ -1,8 +1,8 @@
 # Maintainer: Valentin Paul Andreas Obst <kernel@vpao.de>
 
 pkgbase=linux-vpao
-pkgver=6.6.8.vpao1
-pkgrel=2
+pkgver=6.6.9.vpao1
+pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
 arch=(x86_64)
@@ -30,10 +30,10 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('5036c434e11e4b36d8da3f489851f7f829cf785fa7f7887468537a9ea4572416'
+sha256sums=('8ebc65af0cfc891ba63dce0546583da728434db0f5f6a54d979f25ec47f548b3'
             'SKIP'
             '671d07fd9aa4c542db5666d8265b3786b3132bd9f820550c36b93740477c97be')
-b2sums=('d6f58bfae29239f985c1aa329b19c2fdea1c08c79e819e60f85359e9ef00e97a7f72d74662df7d9def75ff85a3b4bdf36dc9ded578ee472e9b4efa7bf50fcd33'
+b2sums=('c7deb1221716144b636018ee2936abe6397e15204c9bdb4cb5806f6bd303cd5d3f953a7da5865c4f211b866e4dfec4cd347c0a1a0a675f18b1a4ad197b099cec'
         'SKIP'
         '6049d0ae1c5caaa8b21393d08ed33260a711d643be4dc74f95f9540ee7246da0a937f635a23b73eaa21ed1c0633f8290a7ae50447348ff072c6f453bba4331c8')
 
@@ -43,6 +43,16 @@ export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EP
 
 prepare() {
   cd $_srcname
+
+  make mrproper
+
+  echo "Installing Rust toolchain..."
+  rustup override set $(scripts/min-tool-version.sh rustc)
+  rustup component add rust-src
+  cargo install --root /mnt/build/linux-vpao/cargo --locked --version $(scripts/min-tool-version.sh bindgen) bindgen-cli
+
+  echo "Checking Rust toolchain..."
+  make rustavailable
 
   echo "Setting version..."
   echo "-$pkgrel" > localversion.10-pkgrel
