@@ -1,7 +1,7 @@
 # Maintainer: Valentin Paul Andreas Obst <kernel@vpao.de>
 
 pkgbase=linux-vpao
-pkgver=6.6.9.vpao1
+pkgver=6.6.10.vpao1
 pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
@@ -30,12 +30,12 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('8ebc65af0cfc891ba63dce0546583da728434db0f5f6a54d979f25ec47f548b3'
+sha256sums=('9ee627e4c109aec7fca3eda5898e81d201af2c7eb2f7d9d7d94c1f0e1205546c'
             'SKIP'
-            '671d07fd9aa4c542db5666d8265b3786b3132bd9f820550c36b93740477c97be')
-b2sums=('c7deb1221716144b636018ee2936abe6397e15204c9bdb4cb5806f6bd303cd5d3f953a7da5865c4f211b866e4dfec4cd347c0a1a0a675f18b1a4ad197b099cec'
+            '217f54bf0f423d2af260ddbe9702cf66525f2592c31f335c4709db6a5c8f424a')
+b2sums=('c71e651438216e86e436af032cb529c029351b72b460568bd75858f835212360d646bae27caeb3140a4234f4155553aceec3aa94d761e3a634be7c164eee86a4'
         'SKIP'
-        '6049d0ae1c5caaa8b21393d08ed33260a711d643be4dc74f95f9540ee7246da0a937f635a23b73eaa21ed1c0633f8290a7ae50447348ff072c6f453bba4331c8')
+        '2f499eee25ed53693dd7398dec92f0975e3269c2a4007ac7195a267c47da0b5678c0ca69970e54d6f33796564b8fe2dd4707e59b093697e319c79ed6381558ee')
 
 export KBUILD_BUILD_HOST="$(uname -n)"
 export KBUILD_BUILD_USER=$pkgbase

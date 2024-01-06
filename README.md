@@ -38,7 +38,7 @@ Pacman will automatically run mkinitcpio when the kernel package is changed.
 
 #### microcode
 
-The CPU microcode updates are baked into the UKI and applied on boot. Thus, we need to regenerate it when it gets changed. Create `/etc/pacman.d/hooks/ucode.hook` with the following contents:
+The CPU microcode updates are baked into the UKI and applied on boot. Thus, we need to regenerate the UKI when the microcode gets updated. Create `/etc/pacman.d/hooks/ucode.hook` with the following contents:
 
 ```console
 cat << EOF > /etc/pacman.d/hooks/ucode.hook
@@ -58,6 +58,15 @@ NeedsTargets
 Exec=/bin/sh -c 'while read -r trg; do case $trg in linux-vpao) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 EOF
 ```
+
+By default, the microcode is stored in the `/boot` partition, i.e., it is not protected from tampering, and its integrity is not verified when building a new UKI. To change the install location:
+
+- remove the Arch package `pacman -Rsu intel-ucode`
+- get the PKGBUILD form [Gitlab](https://gitlab.archlinux.org/archlinux/packaging/packages/intel-ucode/-/tree/main?ref_type=heads)
+- change the install command, e.g., to `/root/.local/boot/`, which is also where we put the vmlinuz images
+- change the mkinitcpio preset, `ALL_microcode=(/root/.local/boot/*-ucode.img)`
+- build and install the package
+- (automatically) check for updates from time to time, especially when some new CPU bug came out...
 
 #### Signature
 
