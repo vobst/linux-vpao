@@ -1,7 +1,7 @@
 # Maintainer: Valentin Paul Andreas Obst <kernel@vpao.de>
 
 pkgbase=linux-vpao
-pkgver=6.6.10.vpao1
+pkgver=6.7.vpao1
 pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
@@ -30,12 +30,12 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('9ee627e4c109aec7fca3eda5898e81d201af2c7eb2f7d9d7d94c1f0e1205546c'
+sha256sums=('ef31144a2576d080d8c31698e83ec9f66bf97c677fa2aaf0d5bbb9f3345b1069'
             'SKIP'
-            '217f54bf0f423d2af260ddbe9702cf66525f2592c31f335c4709db6a5c8f424a')
-b2sums=('c71e651438216e86e436af032cb529c029351b72b460568bd75858f835212360d646bae27caeb3140a4234f4155553aceec3aa94d761e3a634be7c164eee86a4'
+            'fae40e5a12f78e1e6ac528976a741d2a6227922dd949e2c915a30933477b9516')
+b2sums=('cecdbd19905e43e485ab73b352ced18b37f2a138c97a6956cadcda5d3d271001117dc1cf896b166ff019fc7f405f9539e2ed0d6112b0890efb04d182adf4fd0e'
         'SKIP'
-        '2f499eee25ed53693dd7398dec92f0975e3269c2a4007ac7195a267c47da0b5678c0ca69970e54d6f33796564b8fe2dd4707e59b093697e319c79ed6381558ee')
+        '47732db5dabb0041aebb6c6f2de25b4ac5699ccfe9d5614627baba128aa01134c53dbc8eeecfcb7e193ccdec8d4b8c02dd5f938808bda1ccf595ee864fa41f37')
 
 export KBUILD_BUILD_HOST="$(uname -n)"
 export KBUILD_BUILD_USER=$pkgbase
@@ -44,6 +44,7 @@ export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EP
 prepare() {
   cd $_srcname
 
+  make clean
   make mrproper
 
   echo "Installing Rust toolchain..."
