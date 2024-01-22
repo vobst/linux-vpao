@@ -1,7 +1,7 @@
-# Maintainer: Valentin Paul Andreas Obst <kernel@vpao.de>
+# Maintainer: Valentin Obst <kernel@valentinobst.de>
 
 pkgbase=linux-vpao
-pkgver=6.7.vpao1
+pkgver=6.7.1.vpao1
 pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
@@ -30,12 +30,12 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('ef31144a2576d080d8c31698e83ec9f66bf97c677fa2aaf0d5bbb9f3345b1069'
+sha256sums=('1ecffa568e86a2202ba5533ad9034bc263a9aa14e189597a94f09b3854ad68c3'
             'SKIP'
-            'fae40e5a12f78e1e6ac528976a741d2a6227922dd949e2c915a30933477b9516')
-b2sums=('cecdbd19905e43e485ab73b352ced18b37f2a138c97a6956cadcda5d3d271001117dc1cf896b166ff019fc7f405f9539e2ed0d6112b0890efb04d182adf4fd0e'
+            '394095e5b8bec5321eb03384e203e462292cfa463112a8acd8176b4aeacda199')
+b2sums=('080f19034a9f5519e3212c723492849f3a2e019c310615b40e636cad39c89369fd91fd1129750266a1cf9683c0762a3ff52942045066d62f927642c443b94c76'
         'SKIP'
-        '47732db5dabb0041aebb6c6f2de25b4ac5699ccfe9d5614627baba128aa01134c53dbc8eeecfcb7e193ccdec8d4b8c02dd5f938808bda1ccf595ee864fa41f37')
+        'f1198c0ac1617e9edb864eba64bddccff527668861847d994e18db8291cd9f1c850059ff8f7647f44b2beabf1dae8989aa6a714003bdeb06996cde6c1c9131d1')
 
 export KBUILD_BUILD_HOST="$(uname -n)"
 export KBUILD_BUILD_USER=$pkgbase
@@ -62,7 +62,6 @@ prepare() {
   echo "Setting config..."
   cp ../config .config
   make olddefconfig
-  # uncomment to make changes
   make menuconfig
   diff -u ../config .config || :
 
@@ -191,6 +190,9 @@ _package-headers() {
         strip -v $STRIP_SHARED "$file" ;;
     esac
   done < <(find "$builddir" -type f -perm -u+x ! -name vmlinux -print0)
+
+  echo "Stripping vmlinux..."
+  strip -v $STRIP_STATIC "$builddir/vmlinux"
 
   echo "Adding symlink..."
   mkdir -p "$pkgdir/usr/src"
