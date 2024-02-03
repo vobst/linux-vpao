@@ -1,7 +1,7 @@
 # Maintainer: Valentin Obst <kernel@valentinobst.de>
 
 pkgbase=linux-vpao
-pkgver=6.7.2.vpao1
+pkgver=6.7.3.vpao1
 pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
@@ -30,19 +30,17 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('c34de41baa29c475c0834e88a3171e255ff86cd32d83c6bffc2b797e60bfa671'
+sha256sums=('b7f08c652747574a3aa26e317d7a8f23ffab3fb645e1b1533b215dcfd5742b44'
             'SKIP'
             '1097022b6383b8078dfa36211a9914925516d1fce876b380ae6d90492dabdda3')
-b2sums=('4c1f480de0c1458aa67379cd02d35708f63850adb84a85061088de1f82b5d084bc7cf7da459a3f1e415544351d1f36a9a832277240774ae461cdde11687cbadd'
+b2sums=('2dea0685e5c9b279beb7661f4efa91ccd662d55eb7c5a69aff52fc74bbb574fcb490a9abcc44d895583ca21b3e6860b3c5e9c35daae66b22c4fe97cab44b2a75'
         'SKIP'
         'c1a182f78e93749043cf336a9f41d64dcaa2680dc66a2e9da0bee3462a91da09b1202e1feacb7250b81e33eace759159041845b9e9bef67e24527994f43dee8c')
-
-export KBUILD_BUILD_HOST="$(uname -n)"
-export KBUILD_BUILD_USER=$pkgbase
 
 prepare() {
   cd $_srcname
 
+  echo "Cleaning up, just in case..."
   make clean
   make mrproper
 
