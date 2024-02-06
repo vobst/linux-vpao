@@ -164,3 +164,21 @@ Exec = /usr/bin/sbctl sign /usr/lib/fwupd/efi/fwupdx64.efi -o /usr/lib/fwupd/efi
 Depends = sbctl
 EOF
 ```
+
+#### Intel ME
+
+Do you like opaque binary blobs that run on a permanently powered coprocessor
+and are said to have almost god-like control over your system? Then the Intel
+ME is just your. There isn't much that you can do about it, but we at least
+disable the OS support for IME features. If you can't control the modules
+included in your distribution you can at least blacklist them:
+
+```console
+cat << EOF > /etc/modprobe.d/mei.conf
+blacklist mei
+blacklist mei_hdcp
+blacklist mei_me
+blacklist mei_pxp
+blacklist mei_wdt
+EOF
+```
