@@ -1,7 +1,7 @@
 # Maintainer: Valentin Obst <kernel@valentinobst.de>
 
 pkgbase=linux-vpao
-pkgver=6.7.4.vpao1
+pkgver=6.7.8.vpao1
 pkgrel=1
 pkgdesc='Linux'
 url='https://github.com/torvalds/linux'
@@ -30,12 +30,12 @@ validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('f68d9f5ffc0a24f850699b86c8aea8b8687de7384158d5ed3bede37de098d60c'
+sha256sums=('469ff46b98685df13b56c98417c64ba7a30f8a45baf34aa99f07935e1bf65c18'
             'SKIP'
-            '4b0bf8822d0d374d458185541b998b3dfd8ef8c91810a13a13972a33a41b2187')
-b2sums=('578114990b2987e2b241a7492bd4a69c46adfd613eba9715d63fd4565c19678dfab06b5107a0ff791e9a3190cb52b75a76d231aa39d4e7fba24e79f7f18935a1'
+            '2e633c15eb8a5eb832418c527fb772ab620dfcd16f380bc6216f4d07c1083fc7')
+b2sums=('1e0d42507f639eedc3405d08f67d720ecc6fd8d53603886c296d67e51ac6aa89d44e94b2ddef98b3c44f6ea1724ca89db7658efaada025284cd03ffd53e95895'
         'SKIP'
-        '54064cf2a198b5292aef4c3300690e872ac800e7289dde697184a675f021f209646df679395f928140232ad1317622511285b5c9e0cf49b667eb3f28df91a11b')
+        '621f767461172e3ca0ad1cc7e726d8c2a3f7c83bf6b9308c7dc3e7ae68a8cf947bc47e3e0df3477f0c67e0de95418592def8d1afb3b1a0c83e7b26111325bcbe')
 
 prepare() {
   cd $_srcname
@@ -68,7 +68,7 @@ prepare() {
 
 build() {
   cd $_srcname
-  make all
+  nice -$NICE make all
 }
 
 _package() {

@@ -5,3 +5,4 @@ configs/
 linux-vpao*
 TODO.md
 config-*
+.ccache.log
